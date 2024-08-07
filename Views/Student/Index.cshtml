@@ -1,0 +1,78 @@
+@model List<StudentInformation.Models.StudentViewModel>
+
+@{
+    ViewData["Title"] = "Student Details"; // Correctly set the title
+}
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"]</title> <!-- Use ViewData["Title"] in the <title> tag -->
+    <link rel="stylesheet" href="~/css/site.css" />
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" />
+</head>
+<body>
+    <div class="container mt-4">
+        <h1>@ViewData["Title"]</h1> <!-- Use ViewData["Title"] in an <h1> tag -->
+        <hr />
+        <form>
+            <button asp-action="Create" asp-controller="Student" class="btn btn-primary">Create Student</button>
+            <table class="table table-responsive table-hover mt-3">
+                <thead>
+                    <tr class="table-active">
+                        <th>Id</th>
+                        <th>Name</th>
+                        <th>SUBJECT1</th>
+                        <th>SUBJECT2</th>
+                        <th>SUBJECT3</th>
+                        <th>SUBJECT4</th>
+                        <th>SUBJECT5</th>
+                        <th>SUBJECT6</th>
+                        <th>ACTION</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @if (Model != null && Model.Any())
+                    {
+                        @foreach (var student in Model)
+                        {
+                            <tr>
+                                <td>@student.Id</td>
+                                <td>@student.Name</td>
+                                <td>@student.marks1</td>
+                                <td>@student.marks2</td>
+                                <td>@student.marks3</td>
+                                <td>@student.marks4</td>
+                                <td>@student.marks5</td>
+                                <td>@student.marks6</td>
+                                <td>
+                                    <div class="btn-group-sm">
+                                        <a asp-controller="Student" asp-action="Edit" asp-route-id="@student.Id"
+                                           class="btn btn-primary">Edit</a>
+                                        <a asp-controller="Student" asp-action="Delete" asp-route-id="@student.Id"
+                                           class="btn btn-danger">Delete</a> <!-- Fixed typo "btn-denger" to "btn-danger" -->
+                                    </div>
+                                </td>
+                            </tr>
+                        }
+                    }
+                    else
+                    {
+                        <tr>
+                            <td colspan="9">
+                                <!-- Adjusted colspan to match table columns -->
+                                <div>No Student Available!</div>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </form>
+    </div>
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>
